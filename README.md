@@ -1,4 +1,4 @@
-🌐 Language / Idioma [English Version] [Versión en Español](README_EN.md)| Versión en Español
+🌐 Language / Idioma [English Version](README_EN.md)| Versión en Español
 
 # 📊 Data Analyzer Pro (MVP)
 
