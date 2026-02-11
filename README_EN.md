@@ -1,4 +1,4 @@
-🌐 Language / Idioma English Version | Versión en Español
+🌐 Language / Idioma English Version | [Versión en Español](README.md)
 
 # 📊 Data Analyzer Pro
 
