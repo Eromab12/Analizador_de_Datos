@@ -1,4 +1,4 @@
-🌐 Language / Idioma English Version | Versión en Español
+🌐 Language / Idioma English Version | [Versión en Español](https://github.com/Eromab12/Analizador_de_Datos/blob/main/README.md)
 
 # 📊 Data Analyzer Pro
 
