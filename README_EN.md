@@ -26,7 +26,13 @@ The system is decoupled into modules to separate business logic from the UI:
 3. Run the app: `streamlit run app.py`
 
 or you can use the online version
-
+Dando click en el enlace [https://data-pandas.streamlit.app/] (Yeah I have to think better in the name 😂)
 
 ## 🎯 Target Audience
 Ideal for data analysts and marketing teams who need to pre-process quick reports without relying on complex BI tools.
+
+## Contribution
+
+You can improve this application or even create a better one based on it.
+
+If you have any suggestions or advice about the application or my way of doing it, feel free to let me know; that way, I will keep improving in this world of programming 🤓.

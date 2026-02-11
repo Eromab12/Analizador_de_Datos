@@ -25,5 +25,15 @@ El sistema se divide en módulos para separar la lógica de negocio de la interf
 2. Instalar dependencias: `pip install -r requirements.txt`
 3. Ejecutar la app: `streamlit run app.py`
 
+o pueden usar la versión online:
+
+Dando click en el enlace [https://data-pandas.streamlit.app/] (Lo se, Tengo que pensar mejor en el nombre 😂)
+
 ## 🎯 Caso de Uso
 Ideal para analistas de datos y equipos de marketing que necesitan pre-procesar reportes rápidos sin depender de herramientas complejas de BI.
+
+## Contribucion
+
+Pueden mejorar esta aplicacion o incluso crear una mejor apartir de esta.
+
+Si tienen alguna sugerencia o consejos acerca de la aplicacion, no duden en decirmelos de esa manera ire mejorando en este mundo de la programación 🤓.
