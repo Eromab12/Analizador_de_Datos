@@ -3,3 +3,5 @@ openpyxl
 plotly
 streamlit
 xlsxwriter
+unidecode
+pytest

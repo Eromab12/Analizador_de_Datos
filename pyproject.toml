@@ -1,6 +1,6 @@
 [project]
 name = "project"
-version = "0.1.0"
+version = "0.1.1"
 description = "Simple aplicacion para analisar datos de CSV/EXCEL"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -8,6 +8,8 @@ dependencies = [
     "openpyxl>=3.1.5",
     "pandas>=2.3.3",
     "plotly>=6.5.2",
+    "pytest>=9.0.2",
     "streamlit>=1.54.0",
+    "unidecode>=1.4.0",
     "xlsxwriter>=3.2.9",
 ]

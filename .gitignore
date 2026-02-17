@@ -8,3 +8,4 @@ wheels/
 .python-version
 # Virtual environments
 .venv
+Agents.md

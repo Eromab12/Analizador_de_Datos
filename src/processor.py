@@ -1,20 +1,20 @@
 import pandas as pd
-
-
-    
-def limpieza_datos(df):
-    #Aplica limpieza basica
-    #Elimina filas vacias
-    df = df.dropna(how="all")
-    #Elimina duplicados
-    df = df.drop_duplicates()
-    return df
+import unidecode
 
 def filtros_aplicados(df, columna, valor):
     #Filtra el dataframe basado en una selección.
     if valor == "Todos":
         return df
     return df[df[columna] == valor]
+
+def identificar_tipo_columna(df, columna):
+    #Identifica el tipo de columna para determinar qué filtro mostrar.
+    if pd.api.types.is_numeric_dtype(df[columna]):
+        return "numerico"
+    elif pd.api.types.is_datetime64_any_dtype(df[columna]):
+        return "fecha"
+    else:
+        return "categorico"
 
 class DataError(Exception):
     """Clase base para otras excepciones"""
@@ -28,10 +28,12 @@ class ColumnaNumericaNoEncontrada(DataError):
 
 def validar_df(df):
     if df.empty:
-        raise ArchivoSinDatos("El archivo esta vacio ❌, Sube uno que si tenga datos 😅")
+        raise ArchivoSinDatos("El archivo esta vacio, Sube uno que si tenga datos")
     tiene_numeros = any(pd.api.types.is_numeric_dtype(df[col]) for col in df.columns)
+
+
     if not tiene_numeros:
-        raise ColumnaNumericaNoEncontrada("No hay datos numericos ❌")
+        raise ColumnaNumericaNoEncontrada("No hay datos numericos")
     return True
 
 def carga(archivo_subido):
@@ -48,3 +50,80 @@ def carga(archivo_subido):
         raise de
     except Exception as e:
         raise Exception(f"Error al cargar el archivo: {e}")
+
+def gestionar_nulos(df, estrategia='eliminar', columnas=None, valor_relleno=None):
+    """
+    Gestiona valores nulos en el DataFrame.
+    Versión corregida y simplificada.
+    """
+    df_limpio = df.copy()
+    
+    # 1. Definir qué columnas vamos a procesar
+    if columnas:
+        # Si el usuario pasa columnas, verificamos que existan
+        cols_procesar = [col for col in columnas if col in df_limpio.columns]
+    else:
+        # Si no pasa columnas, tomamos TODAS las columnas del DataFrame
+        cols_procesar = df_limpio.columns.tolist()
+    
+    # 2. Estrategia ELIMINAR
+    # Dropna funciona mejor pasando directamente la lista de columnas
+    if estrategia == 'eliminar':
+        df_limpio = df_limpio.dropna(subset=cols_procesar)
+        return df_limpio
+    
+    # 3. Otras Estrategias (Rellenar)
+    # Iteramos solo sobre las columnas que vamos a procesar
+    for col in cols_procesar:
+        # Verificamos que la columna tenga nulos antes de procesar (optimización)
+        if df_limpio[col].isnull().sum() == 0:
+            continue
+            
+        tipo = identificar_tipo_columna(df_limpio, col)
+        
+        if estrategia == 'rellenar_media':
+            if tipo == 'numerico':
+                media = df_limpio[col].mean()
+                df_limpio[col] = df_limpio[col].fillna(media)
+                
+        elif estrategia == 'rellenar_moda':
+            moda = df_limpio[col].mode()
+            if not moda.empty:
+                df_limpio[col] = df_limpio[col].fillna(moda[0])
+                
+        elif estrategia == 'rellenar_constante':
+            if valor_relleno is not None:
+                df_limpio[col] = df_limpio[col].fillna(valor_relleno)
+                
+    return df_limpio
+
+def estandarizar_texto(df, columnas=None, formato = 'titulo', quitar_tildes = True):
+    #Funcion que se encarga de estandarizar columnas de texto: espacion, tildes y Mayusculas
+
+    df_std = df.copy()
+
+    if columnas is None:
+        columnas = [col for col in df_std.columns if identificar_tipo_columna(df_std, col) == 'categorico']
+    
+    for col in columnas:
+        if col in df_std.columns:
+            df_std[col] = df_std[col].astype(str).str.strip()
+
+            if quitar_tildes:
+                df_std[col] = df_std[col].apply(lambda x: unidecode.unidecode(x))
+            
+            if formato == 'titulo':
+                df_std[col] = df_std[col].str.title()
+            elif formato == 'mayusculas':
+                df_std[col] = df_std[col].str.upper()
+            elif formato == 'minusculas':
+                df_std[col] = df_std[col].str.lower()
+
+            df_std[col] = df_std[col].replace('nan', pd.NA)
+    return df_std
+
+def limpiar_nombres_columnas(df):
+    #Funcion que se encarga de limpiar los nombres de las columnas
+    
+    df.columns = [unidecode.unidecode(str(col).strip().lower().replace(' ', '_')) for col in df.columns]
+    return df

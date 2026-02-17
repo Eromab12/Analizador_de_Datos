@@ -1,16 +1,16 @@
 #Librerias necesarias para el arranque del programa
 import streamlit as st
-from src.processor import carga, filtros_aplicados, ArchivoSinDatos, ColumnaNumericaNoEncontrada
+from src.processor import carga, filtros_aplicados, ArchivoSinDatos, ColumnaNumericaNoEncontrada, identificar_tipo_columna
 from src.visualizer import renderizador_graficos
 from src.utils import exportar_csv, exportar_excel
 
 
         
 #configuracion de la pagina
-st.set_page_config(page_title="Analizador de Datos", layout="wide")
+st.set_page_config(page_title="DataRefine", layout="wide")
 
 #titulo de la pagina
-st.title("Analizador de Datos")
+st.title("DataRefine")
 st.write("Sube tu archivo para visualizar un resumen automatico.")
 
 archivo_subido = st.file_uploader("Elige un archivo a subir", type=["csv", "xlsx"])
@@ -22,15 +22,50 @@ if archivo_subido:
         df = carga(archivo_subido)
         st.success("Archivo validado correctamente")
 
-
-
+        # --- SECCIÓN DE FILTROS CON SESSION STATE ---
         st.sidebar.header("Filtros Globales")
-        columna_filtrada = st.sidebar.selectbox("Selecciona una columna para filtrar", df.columns)
+
+        # Inicializar estado si no existe
+        if "columna_sel" not in st.session_state:
+            st.session_state.columna_sel = df.columns[0]
+        if "valor_sel" not in st.session_state:
+            st.session_state.valor_sel = "Todos"
+
+        # Callbacks para manejar cambios
+        def reset_filtros():
+            st.session_state.columna_sel = df.columns[0]
+            st.session_state.valor_sel = "Todos"
+
+        def al_cambiar_columna():
+            st.session_state.valor_sel = "Todos"
+
+        columna_filtrada = st.sidebar.selectbox(
+            "Selecciona una columna para filtrar", 
+            df.columns, 
+            key="columna_sel",
+            on_change=al_cambiar_columna
+        )
+
+        # Identificar tipo de columna para referencia (se puede expandir la lógica de filtros luego)
+        tipo_col = identificar_tipo_columna(df, columna_filtrada)
+        st.sidebar.caption(f"Tipo de dato: {tipo_col.capitalize()}")
 
         opciones = ["Todos"] + df[columna_filtrada].unique().tolist()
-        seleccion = st.sidebar.selectbox("Valor", opciones)
+        
+        # Asegurarse de que el valor seleccionado existe en las opciones actuales
+        if st.session_state.valor_sel not in opciones:
+            st.session_state.valor_sel = "Todos"
+
+        seleccion = st.sidebar.selectbox(
+            "Selecciona el valor", 
+            opciones, 
+            key="valor_sel"
+        )
+
+        st.sidebar.button("Restablecer Filtros", on_click=reset_filtros)
 
         df_filtrado = filtros_aplicados(df, columna_filtrada, seleccion)
+        # --------------------------------------------
 
         st.subheader("Visualizacion")
 
@@ -40,7 +75,7 @@ if archivo_subido:
         st.plotly_chart(fig, width="stretch")
         
         st.divider()
-
+        st.divider()
         st.subheader("Tabla Editable")
         st.info("Puedes editar cualquier celda")
 
