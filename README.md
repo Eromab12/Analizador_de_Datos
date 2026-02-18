@@ -20,7 +20,6 @@
 
 ## 📸 Preview
 ![DataRefine Dashboard](assets/demo.gif) 
-*Insert your GIF or Screenshot here to show the app in action.*
 
 ---
 
