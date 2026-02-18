@@ -43,14 +43,15 @@ Engineered with a focus on **Separation of Concerns (SoC)** to ensure scalabilit
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Python 3.8+
-- Pip
+- Python 3.11+
+- uv (or Pip like you prefer)
 
 ### Installation
 1. Clone the repository:
    ```bash
    git clone [https://github.com/your-username/DataRefine.git](https://github.com/your-username/DataRefine.git)
-   pip install -r requirements.txt
+   uv pip install -r requirements.txt
+   uv add -r requirements.txt
    streamlit run app.py
    ```
 
