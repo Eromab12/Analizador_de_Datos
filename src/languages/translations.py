@@ -11,6 +11,9 @@ LANGUAGES = {
         "uploading": "Procesando archivo...",
         "upload_success": "Archivo cargado exitosamente.",
         "upload_error": "Error al cargar el archivo.",
+        "processing": "Procesando...",
+        "all_columns": "Todas las columnas",
+        "select_col_nulls": "Selecciona columna(s)",
         
         # Limpieza
         "cleaning_tools": "🧹 Herramientas de Limpieza",
@@ -76,6 +79,9 @@ LANGUAGES = {
         "uploading": "Processing file...",
         "upload_success": "File uploaded successfully.",
         "upload_error": "Error loading file.",
+        "processing": "Processing...",
+        "all_columns": "All columns",
+        "select_col_nulls": "Select column(s)",
         
         # Cleaning
         "cleaning_tools": "🧹 Cleaning Tools",
@@ -141,6 +147,9 @@ LANGUAGES = {
         "uploading": "Processando arquivo...",
         "upload_success": "Arquivo carregado com sucesso.",
         "upload_error": "Erro ao carregar arquivo.",
+        "processing": "Processando...",
+        "all_columns": "Todas as colunas",
+        "select_col_nulls": "Selecione coluna(s)",
         
         # Limpeza
         "cleaning_tools": "🧹 Ferramentas de Limpeza",
@@ -200,10 +209,7 @@ LANGUAGES = {
 }
 
 def t(key, **kwargs):
-    """
-    Traduce una clave al idioma actual configurado en session_state.
-    Si la clave no existe, devuelve la clave misma (para debug).
-    """
+
     # Obtener idioma de session_state, por defecto 'es'
     lang = st.session_state.get('language', 'en')
     
