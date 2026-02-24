@@ -99,6 +99,22 @@ def render_sidebar():
                     st.session_state['df'] = df_actualizado
                     st.success(t("success_text"))
                     st.rerun()
+            
+            st.markdown(f"### {t('duplicates_mgmt')}")
+            
+            if st.button(t("remove_duplicates")):
+                with st.spinner(t("processing")):
+                    df_limpio, count = processor.eliminar_duplicados(st.session_state['df'])
+                    st.session_state['df'] = df_limpio
+                    if count > 0:
+                        st.success(t("duplicates_success", count=count))
+                    else:
+                        st.info(t("no_duplicates"))
+                    st.rerun()
+
+            st.markdown(f"### {t('analysis_tools')}")
+            
+            st.checkbox(t("show_summary"), value=False, key="show_summary_stats")
                                     
         # --- SECCIÓN DE FILTROS ---
         st.sidebar.header(t("global_filters"))

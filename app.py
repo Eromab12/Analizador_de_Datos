@@ -1,6 +1,6 @@
 #Librerias necesarias para el arranque del programa
 import streamlit as st
-from src.processor import carga, ArchivoSinDatos, ColumnaNumericaNoEncontrada
+from src.processor import carga, ArchivoSinDatos, ColumnaNumericaNoEncontrada, generar_resumen_estadistico
 from src.languages import t, LANGUAGES
 from src.components.sidebar import render_sidebar
 from src.components.charts import render_charts
@@ -58,6 +58,12 @@ if archivo_subido:
         render_charts(df_filtrado, columna_filtrada)
         
         st.divider()
+        # Mostrar Resumen Estadístico si el usuario lo activó en el sidebar
+        if st.session_state.get("show_summary_stats"):
+            st.subheader(t("analysis_tools"))
+            resumen = generar_resumen_estadistico(st.session_state['df'])
+            st.dataframe(resumen, width="stretch")
+
         st.divider()
         st.subheader(t("editable_table"))
         st.info(t("edit_info"))

@@ -43,6 +43,16 @@ LANGUAGES = {
         "apply_text": "Aplicar Formato de Texto",
         "success_text": "Texto estandarizado correctamente",
         
+        # Duplicados
+        "duplicates_mgmt": "Gestión de Duplicados",
+        "remove_duplicates": "Eliminar filas duplicadas",
+        "duplicates_success": "Se eliminaron {count} filas duplicadas.",
+        "no_duplicates": "No se encontraron filas duplicadas.",
+
+        # Análisis
+        "analysis_tools": "Herramientas de Análisis",
+        "show_summary": "Mostrar Resumen Estadístico",
+
         # Descargas
         "btn_download_csv": "Descargar CSV",
         "btn_download_excel": "Descargar Excel",
@@ -111,6 +121,16 @@ LANGUAGES = {
         "apply_text": "Apply Text Format",
         "success_text": "Text standardized successfully",
         
+        # Duplicates
+        "duplicates_mgmt": "Duplicate Management",
+        "remove_duplicates": "Remove duplicate rows",
+        "duplicates_success": "Removed {count} duplicate rows.",
+        "no_duplicates": "No duplicate rows found.",
+
+        # Analysis
+        "analysis_tools": "Analysis Tools",
+        "show_summary": "Show Statistical Summary",
+
         # Downloads
         "btn_download_csv": "Download CSV",
         "btn_download_excel": "Download Excel",
@@ -179,6 +199,16 @@ LANGUAGES = {
         "apply_text": "Aplicar Formato de Texto",
         "success_text": "Texto padronizado com sucesso",
         
+        # Duplicatas
+        "duplicates_mgmt": "Gestão de Duplicatas",
+        "remove_duplicates": "Remover linhas duplicadas",
+        "duplicates_success": "{count} linhas duplicadas removidas.",
+        "no_duplicates": "Nenhuma linha duplicada encontrada.",
+
+        # Análise
+        "analysis_tools": "Ferramentas de Análise",
+        "show_summary": "Mostrar Resumo Estatístico",
+
         # Downloads
         "btn_download_csv": "Baixar CSV",
         "btn_download_excel": "Baixar Excel",

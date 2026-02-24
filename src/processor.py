@@ -127,3 +127,20 @@ def limpiar_nombres_columnas(df):
     
     df.columns = [unidecode.unidecode(str(col).strip().lower().replace(' ', '_')) for col in df.columns]
     return df
+
+def eliminar_duplicados(df):
+ 
+ # Retorna el DataFrame limpio y la cantidad de filas eliminadas.
+    n_duplicados = df.duplicated().sum()
+    if n_duplicados > 0:
+        df_limpio = df.drop_duplicates().reset_index(drop=True)
+        return df_limpio, n_duplicados
+    return df, 0
+
+def generar_resumen_estadistico(df):
+    
+    #Genera un resumen estadístico de las columnas numéricas.
+    #Incluye conteo, media, desviación estándar, min, max y cuartiles.
+    
+
+    return df.describe().T # Transponemos para mejor lectura en espacios verticales
